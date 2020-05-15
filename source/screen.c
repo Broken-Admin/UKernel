@@ -11,6 +11,7 @@ void kprint(const char *str)
 {
     // When providing characterstring argument, #[BG_COLORCODE_4BIT][FG_COLORCODE_4BIT] can be added before text
     // which need be colored.
+    // Example in *exitmsg in kernel.c, kernel_exit_handler()
     unsigned int currentcolor = 0x07; // fg color code of light gray on black bg
     unsigned int i = 0;
     while (str[i] != '\0')

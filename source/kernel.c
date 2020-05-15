@@ -9,18 +9,9 @@ const char *kernelVersion = "v0.01 Alpha";   // define kernel version
 
 void kernel_exit_handler(void)
 {
-    const char *bracket1 = "\n[";
-    const char *bracket2 = "] ";
-    const char *infosign = "INFO";
-    const char *exitmsg = "Kernel code execution finished, halt";
-    kprint(bracket1);
-    kprintcolored(infosign, CHAR_FG_LIGHTGREEN);
-    kprint(bracket2);
+    const char *exitmsg = "\n[#0AINFO#07] Kernel code execution finished, halt";
     kprint(exitmsg);
     return;
-    /*
-    TODO: Clean up this code. Perhaps make a function that will write colored text inside brackets.
-    */
 }
 
 void kmain(void)
