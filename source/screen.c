@@ -14,38 +14,63 @@ void kprint(const char *str)
     // Example in *exitmsg in kernel.c, kernel_exit_handler()
     unsigned int currentcolor = 0x07; // fg color code of light gray on black bg
     unsigned int i = 0;
+    // Loop until reaching null byte
     while (str[i] != '\0')
     {
+        // Get the hex value codes
+        // Handles color coding
         if (str[i] == '#' &&
             str[i + 1] != '#')
         {
+            // This code is horrible and I don't like in
+            // I would like to use tolower, but it requires
+            // usage of the standard c libraries, which is
+            // not done anywhere else
+            // TODO, implement tolower and possibly a dir
+            // for other standard features of a kernel
+
             i++; // go to hexcodeone location
-            // get the hex value code
+            // Sixteens place
             int charcodeone = str[i++];
             if (charcodeone >= 'A' && charcodeone <= 'F')
             {
-                currentcolor = (charcodeone - 'A' + 0xA) * 16;
+                // Get the offset from 'A' in ascii
+                // Add 0xA to said offset, as 0xA is the hexidecimal offset
+                // Multiply by 16
+                currentcolor = ((charcodeone - 'A') + 0xA) * 16;
             }
             else if (charcodeone >= 'a' && charcodeone <= 'f')
             {
-                currentcolor = (charcodeone - 'a' + 0xA) * 16;
+                // Get the offset from 'a' in ascii
+                // Add 0xA to said offset, as 0xA is the hexidecimal offset
+                // Multiply by 16
+                currentcolor = ((charcodeone - 'a') + 0xA) * 16;
             }
             else if (charcodeone >= '0' && charcodeone <= '9')
             {
-                currentcolor = (charcodeone - '1' + 0x1) * 16;
+                // Get offset from '0' in ascii
+                // Multiply by 16
+                currentcolor = (charcodeone - '0') * 16;
             }
+            
+            // Ones Place
             int charcodetwo = str[i++];
             if (charcodetwo >= 'A' && charcodetwo <= 'F')
             {
-                currentcolor += charcodetwo - 'A' + 0xA;
+                // Get the offset from 'A' in ascii
+                // Add 0xA to said offset, as 0xA is the hexidecimal offset
+                currentcolor += (charcodetwo - 'A') + 0xA;
             }
             else if (charcodetwo >= 'a' && charcodetwo <= 'f')
             {
-                currentcolor += charcodetwo - 'a' + 0xA;
+                // Get the offset from 'a' in ascii
+                // Add 0xA to said offset, as 0xA is the hexidecimal offset
+                currentcolor += (charcodetwo - 'a') + 0xA;
             }
             else if (charcodetwo >= '0' && charcodetwo <= '9')
             {
-                currentcolor += charcodetwo - '1' + 0x1;
+                // Get the offset from '0' in ascii
+                currentcolor += charcodetwo - '0';
             }
             else if (charcodetwo == '#')
             {
